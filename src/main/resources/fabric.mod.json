@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "more_enchanted",
+  "version": "${version}",
+  "name": "More Enchanted",
+  "description": "Expands Minecraft 26.3 with 12 wilderness-themed enchantments, dynamic combat, foraging bonuses, and full Enchanted Books support.",
+  "authors": [
+    {
+      "name": "modclaim"
+    }
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/more_enchanted",
+    "sources": "https://github.com/modclaim/more_enchanted"
+  },
+  "license": "MIT",
+  "icon": "assets/more_enchanted/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.moreenchanted.MoreEnchanted"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": ">=26.3",
+    "fabric-api": "*"
+  }
+}

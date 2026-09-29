@@ -1,0 +1,25 @@
+{
+  "anvil_cost": 4,
+  "description": {
+    "translate": "enchantment.more_enchanted.curse_of_rust"
+  },
+  "max_cost": {
+    "base": 50,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "mainhand",
+    "offhand",
+    "armor_head",
+    "armor_chest",
+    "armor_legs",
+    "armor_feet"
+  ],
+  "supported_items": "#minecraft:enchantable/durability",
+  "weight": 1
+}
