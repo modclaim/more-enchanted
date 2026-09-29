@@ -3,6 +3,7 @@ package dev.moreenchanted;
 import dev.moreenchanted.effect.ForagerHandler;
 import dev.moreenchanted.effect.MovementAndCombatHandlers;
 import dev.moreenchanted.effect.TimberHandler;
+import dev.moreenchanted.effect.WatermarkHandler;
 import dev.moreenchanted.registry.ModItemGroups;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
@@ -14,7 +15,7 @@ public class MoreEnchanted implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("More Enchanted initializing for Minecraft 26.3...");
+        LOGGER.info("More Enchanted v1.0.0 by modclaim initializing for Minecraft 26.3...");
 
         // Register Creative Tab and Books
         ModItemGroups.register();
@@ -23,6 +24,7 @@ public class MoreEnchanted implements ModInitializer {
         TimberHandler.register();
         ForagerHandler.register();
         MovementAndCombatHandlers.register();
+        WatermarkHandler.register();
 
         LOGGER.info("More Enchanted successfully initialized with 12 custom enchantments!");
     }

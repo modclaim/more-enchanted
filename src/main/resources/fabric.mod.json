@@ -10,8 +10,9 @@
     }
   ],
   "contact": {
-    "homepage": "https://modrinth.com/mod/more_enchanted",
-    "sources": "https://github.com/modclaim/more_enchanted"
+    "homepage": "https://github.com/modclaim/more-enchanted",
+    "sources": "https://github.com/modclaim/more-enchanted",
+    "issues": "https://github.com/modclaim/more-enchanted/issues"
   },
   "license": "MIT",
   "icon": "assets/more_enchanted/icon.png",
@@ -21,9 +22,20 @@
       "dev.moreenchanted.MoreEnchanted"
     ]
   },
+  "mixins": [
+    "more_enchanted.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.19.5",
     "minecraft": ">=26.3",
     "fabric-api": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.sources": "https://github.com/modclaim/more-enchanted",
+        "modmenu.issues": "https://github.com/modclaim/more-enchanted/issues"
+      }
+    }
   }
 }
