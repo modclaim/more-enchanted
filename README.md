@@ -1,11 +1,23 @@
-# More Enchanted 🌟
+<p align="center">
+  <img src="assets/banner.png" alt="More Enchanted Banner" width="100%">
+</p>
 
-[![Minecraft](https://img.shields.io/badge/Minecraft-26.3%20%22Wilderness%20Bound%22-green.svg)](https://minecraft.net/)
-[![Fabric](https://img.shields.io/badge/Fabric-0.160.7%2B26.3-blue.svg)](https://fabricmc.net/)
-[![Java](https://img.shields.io/badge/Java-25-orange.svg)](https://openjdk.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+<p align="center">
+  <img src="assets/logo.png" alt="More Enchanted Logo" width="130" height="130">
+</p>
 
-**More Enchanted** is a modern, high-performance Fabric mod designed for **Minecraft 26.3 ("Wilderness Bound")**. It expands the game's enchantment mechanics with **12 wilderness-themed enchantments**, dynamic combat effects, parkour maneuvers, foraging enhancements, dedicated creative mode tabs, and full Enchanted Books support!
+<h1 align="center">More Enchanted 🌟</h1>
+
+<p align="center">
+  <b>Expands Minecraft 26.3 ("Wilderness Bound") with 12 wilderness-themed enchantments, dynamic 3D combat, aerial parkour, and complete Enchanted Books integration!</b>
+</p>
+
+<p align="center">
+  <a href="https://minecraft.net/"><img src="https://img.shields.io/badge/Minecraft-26.3%20%22Wilderness%20Bound%22-green.svg" alt="Minecraft"></a>
+  <a href="https://fabricmc.net/"><img src="https://img.shields.io/badge/Fabric-0.160.7%2B26.3-blue.svg" alt="Fabric"></a>
+  <a href="https://openjdk.org/"><img src="https://img.shields.io/badge/Java-25-orange.svg" alt="Java"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License"></a>
+</p>
 
 ---
 
