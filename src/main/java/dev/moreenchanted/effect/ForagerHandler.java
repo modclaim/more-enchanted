@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class ForagerHandler {
     public static void register() {
         PlayerBlockBreakEvents.AFTER.register((level, player, pos, state, blockEntity) -> {
-            if (level.isClientSide()) return;
+            if (level.isClientSide() || player.isCreative() || player.isSpectator()) return;
             if (state.is(BlockTags.LEAVES) || isWildernessFoliage(state)) {
                 ItemStack tool = player.getMainHandItem();
                 int foragerLevel = ModEnchantments.getLevel(tool, ModEnchantments.FORAGER);
@@ -33,7 +33,7 @@ public class ForagerHandler {
 
     private static void handleForageDrops(ServerLevel level, Player player, BlockPos pos, int levelMultiplier) {
         RandomSource random = level.getRandom();
-        float chance = levelMultiplier * 0.30f; // 30% per level
+        float chance = levelMultiplier >= 3 ? 1.0f : levelMultiplier * 0.30f;
 
         if (random.nextFloat() < chance) {
             int roll = random.nextInt(4);

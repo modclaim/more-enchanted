@@ -23,6 +23,9 @@ repositories {
 }
 
 dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
@@ -42,7 +45,52 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 java {
+    toolchain { languageVersion = JavaLanguageVersion.of(25) }
     withSourcesJar()
     sourceCompatibility = JavaVersion.toVersion(25)
     targetCompatibility = JavaVersion.toVersion(25)
+}
+
+test {
+    useJUnitPlatform()
+    maxHeapSize = "256m"
+}
+
+// Integration harness is a separate development mod and is never included in release JARs.
+sourceSets {
+    testmod {
+        compileClasspath += sourceSets.main.compileClasspath + sourceSets.main.output
+        runtimeClasspath += sourceSets.main.runtimeClasspath + sourceSets.main.output
+    }
+}
+loom {
+    mods {
+        more_enchanted { sourceSet sourceSets.main }
+        more_enchanted_smoketest { sourceSet sourceSets.testmod }
+    }
+    runs {
+        smokeServer {
+            server()
+            name 'More Enchanted regression server'
+            source sourceSets.testmod
+            runDir 'build/smoke-server'
+            vmArg '-Xmx512m'
+            programArg 'nogui'
+        }
+    }
+}
+tasks.named('runSmokeServer').configure {
+    doFirst {
+        def run = file('build/smoke-server')
+        run.mkdirs()
+        new File(run, 'eula.txt').text = 'eula=true\n'
+        new File(run, 'server.properties').text = 'online-mode=false\nserver-ip=127.0.0.1\nserver-port=0\nview-distance=2\nsimulation-distance=2\nlevel-type=minecraft:flat\ngenerate-structures=false\nspawn-protection=0\n'
+        new File(run, 'smoke-result.txt').delete()
+    }
+    doLast {
+        def result = file('build/smoke-server/smoke-result.txt')
+        if (!result.exists() || !result.text.startsWith('PASS')) {
+            throw new GradleException('More Enchanted runtime regressions failed; inspect smoke-server logs.')
+        }
+    }
 }

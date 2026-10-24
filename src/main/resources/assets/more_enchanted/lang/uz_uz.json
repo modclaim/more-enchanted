@@ -23,5 +23,6 @@
   "enchantment.more_enchanted.curse_of_rust": "Zanglash la'nati",
   "enchantment.more_enchanted.curse_of_rust.desc": "Suvda yoki yomg'irda foydalanilganda buyumning chidamliligi ikki barobar tez ketadi.",
   "enchantment.more_enchanted.curse_of_spores": "Spora la'nati",
-  "enchantment.more_enchanted.curse_of_spores.desc": "Zarba olganda o'yinchining ko'zini bir necha soniyaga qorong'ilashtiradi."
+  "enchantment.more_enchanted.curse_of_spores.desc": "Zarba olganda o'yinchining ko'zini bir necha soniyaga qorong'ilashtiradi.",
+  "tag.item.more_enchanted.enchantable.spore_weapons": "Spora portlashi qurollari"
 }

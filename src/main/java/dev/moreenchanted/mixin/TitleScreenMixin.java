@@ -19,7 +19,7 @@ public abstract class TitleScreenMixin extends Screen {
     private void onExtractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick, CallbackInfo ci) {
         if (this.font != null) {
             // Render unobtrusive, stylish mod watermark in bottom-left corner above copyright
-            graphics.text(this.font, "More Enchanted v1.0.0 by modclaim", 4, this.height - 22, 0xAAFFAA00, true);
+            graphics.text(this.font, "More Enchanted v1.0.1 by modclaim", 4, this.height - 22, 0xAAFFAA00, true);
         }
     }
 }

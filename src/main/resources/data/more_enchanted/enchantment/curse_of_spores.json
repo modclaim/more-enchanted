@@ -13,10 +13,10 @@
     "per_level_above_first": 0
   },
   "slots": [
-    "armor_head",
-    "armor_chest",
-    "armor_legs",
-    "armor_feet"
+    "head",
+    "chest",
+    "legs",
+    "feet"
   ],
   "supported_items": "#minecraft:enchantable/armor",
   "weight": 1

@@ -36,7 +36,7 @@ public class ModEnchantments {
         for (var entry : enchants.entrySet()) {
             Holder<Enchantment> holder = entry.getKey();
             if (holder.is(key)) {
-                return entry.getIntValue();
+                return Math.clamp(entry.getIntValue(), 0, holder.value().getMaxLevel());
             }
         }
         return 0;

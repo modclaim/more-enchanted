@@ -15,7 +15,7 @@ public class MoreEnchanted implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("More Enchanted v1.0.0 by modclaim initializing for Minecraft 26.3...");
+        LOGGER.info("More Enchanted v1.0.1 by modclaim initializing for Minecraft 26.3...");
 
         // Register Creative Tab and Books
         ModItemGroups.register();

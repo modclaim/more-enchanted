@@ -23,5 +23,6 @@
   "enchantment.more_enchanted.curse_of_rust": "Curse of Rust",
   "enchantment.more_enchanted.curse_of_rust.desc": "Causes tools and armor to deteriorate twice as fast when immersed in water or rain.",
   "enchantment.more_enchanted.curse_of_spores": "Curse of Spores",
-  "enchantment.more_enchanted.curse_of_spores.desc": "Blinds the wearer with dense spores upon suffering combat damage."
+  "enchantment.more_enchanted.curse_of_spores.desc": "Blinds the wearer with dense spores upon suffering combat damage.",
+  "tag.item.more_enchanted.enchantable.spore_weapons": "Spore Burst weapons"
 }

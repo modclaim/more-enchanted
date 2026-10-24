@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-10-24
+
+- Fix a world/server startup crash caused by invalid armor slot identifiers in six enchantment definitions.
+
+- Route Timber through normal player block breaking, including Fabric protection callbacks, tool loot and durability.
+- Bound Timber to 16/32/64 total logs of the same type; prevent recursive cascades, unloaded-chunk reads and creative-mode extra breaks. Sneak to disable.
+- Make lifesteal proportional to actual damage; ignore blocked and zero-damage procs.
+- Read Spore Burst from the projectile's original bow/crossbow and support crossbows in enchantment data.
+- Exclude allies/spectators from combat area effects; clamp invalid enchantment levels.
+- Make Forager III's bonus chance 100 percent and suppress creative bonus drops.
+- Limit campfire scans to loaded blocks in range.
+- Add a separate real-server regression harness; update runtime/version requirements and documentation.
+
 ## [1.0.0] - 2026-09-29
 
 ### Added

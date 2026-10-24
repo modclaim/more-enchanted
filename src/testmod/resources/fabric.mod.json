@@ -1,0 +1,6 @@
+{
+ "schemaVersion":1,"id":"more_enchanted_smoketest","version":"1.0.0",
+ "name":"More Enchanted regression harness","environment":"server",
+ "entrypoints":{"main":["dev.moreenchanted.test.ServerRegression"]},
+ "depends":{"more_enchanted":"*","fabric-api":"*"}
+}

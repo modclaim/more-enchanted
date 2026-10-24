@@ -15,10 +15,10 @@
   "slots": [
     "mainhand",
     "offhand",
-    "armor_head",
-    "armor_chest",
-    "armor_legs",
-    "armor_feet"
+    "head",
+    "chest",
+    "legs",
+    "feet"
   ],
   "supported_items": "#minecraft:enchantable/durability",
   "weight": 1

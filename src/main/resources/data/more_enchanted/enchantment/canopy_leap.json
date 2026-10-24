@@ -14,7 +14,7 @@
     "per_level_above_first": 8
   },
   "slots": [
-    "armor_feet"
+    "feet"
   ],
   "supported_items": "#minecraft:enchantable/foot_armor",
   "weight": 2

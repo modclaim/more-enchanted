@@ -20,7 +20,7 @@ public class WatermarkHandler {
             MutableComponent prefix = Component.literal("[More Enchanted] ")
                     .withStyle(style -> style.withColor(0xFFA500).withBold(true));
 
-            MutableComponent version = Component.literal("v1.0.0 ")
+            MutableComponent version = Component.literal("v1.0.1 ")
                     .withStyle(style -> style.withColor(0xE0E0E0));
 
             MutableComponent author = Component.literal("by modclaim")

@@ -20,6 +20,7 @@ import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -82,7 +83,7 @@ public class MovementAndCombatHandlers {
 
     private static void registerCombatHandlers() {
         ServerLivingEntityEvents.AFTER_DAMAGE.register((target, damageSource, baseDamageDealt, damageTaken, blocked) -> {
-            if (target.level().isClientSide()) return;
+            if (target.level().isClientSide() || blocked || damageTaken <= 0.0f) return;
             ServerLevel sLevel = (ServerLevel) target.level();
 
             // Curse of Spores (When bearer takes damage)
@@ -104,10 +105,16 @@ public class MovementAndCombatHandlers {
             }
 
             if (!(damageSource.getEntity() instanceof LivingEntity attacker)) return;
-            ItemStack weapon = attacker.getMainHandItem();
+            boolean melee = damageSource.getDirectEntity() == attacker;
+            boolean arrowHit = damageSource.getDirectEntity() instanceof AbstractArrow;
+            if (!melee && !arrowHit) return;
+            ItemStack weapon = arrowHit
+                    ? ((AbstractArrow) damageSource.getDirectEntity()).getWeaponItem()
+                    : attacker.getMainHandItem();
+            if (weapon == null || weapon.isEmpty()) return;
 
             // Autumn Gale (Sweep/Smash wind storm + knockback + slowness)
-            int galeLevel = ModEnchantments.getLevel(weapon, ModEnchantments.AUTUMN_GALE);
+            int galeLevel = melee ? ModEnchantments.getLevel(weapon, ModEnchantments.AUTUMN_GALE) : 0;
             if (galeLevel > 0) {
                 Vec3 center = target.position();
                 double radius = 3.0 + galeLevel * 1.5;
@@ -115,7 +122,7 @@ public class MovementAndCombatHandlers {
                 AABB box = new AABB(center.x - radius, center.y - 2, center.z - radius, center.x + radius, center.y + 2, center.z + radius);
 
                 for (LivingEntity nearby : sLevel.getEntitiesOfClass(LivingEntity.class, box)) {
-                    if (nearby != attacker) {
+                    if (nearby != attacker && !nearby.isAlliedTo(attacker) && !nearby.isSpectator()) {
                         Vec3 diff = nearby.position().subtract(center).normalize();
                         if (diff.lengthSqr() < 0.001) diff = new Vec3(0, 1, 0);
                         nearby.push(diff.x * pushForce, 0.35, diff.z * pushForce);
@@ -127,10 +134,10 @@ public class MovementAndCombatHandlers {
             }
 
             // Vampiric Strike (Lifesteal on living mobs)
-            int vampLevel = ModEnchantments.getLevel(weapon, ModEnchantments.VAMPIRIC_STRIKE);
+            int vampLevel = melee ? ModEnchantments.getLevel(weapon, ModEnchantments.VAMPIRIC_STRIKE) : 0;
             if (vampLevel > 0 && !target.getType().builtInRegistryHolder().is(EntityTypeTags.UNDEAD)) {
                 float percent = vampLevel == 1 ? 0.08f : (vampLevel == 2 ? 0.15f : 0.22f);
-                float heal = Math.max(1.0f, damageTaken * percent);
+                float heal = damageTaken * percent;
                 attacker.heal(heal);
                 sLevel.sendParticles(ParticleTypes.HEART, attacker.getX(), attacker.getY() + 1.2, attacker.getZ(), 3, 0.3, 0.3, 0.3, 0.02);
                 sLevel.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.GENERIC_DRINK.value(), SoundSource.PLAYERS, 0.7f, 1.6f);
@@ -146,13 +153,13 @@ public class MovementAndCombatHandlers {
             }
 
             // Spore Burst (Area poison cloud from projectile or weapon)
-            int sporeLevel = ModEnchantments.getLevel(weapon, ModEnchantments.SPORE_BURST);
+            int sporeLevel = arrowHit ? ModEnchantments.getLevel(weapon, ModEnchantments.SPORE_BURST) : 0;
             if (sporeLevel > 0) {
                 Vec3 center = target.position();
                 double radius = sporeLevel == 1 ? 2.5 : 4.0;
                 AABB sporeBox = new AABB(center.x - radius, center.y - 1, center.z - radius, center.x + radius, center.y + 2, center.z + radius);
                 for (LivingEntity nearby : sLevel.getEntitiesOfClass(LivingEntity.class, sporeBox)) {
-                    if (nearby != attacker) {
+                    if (nearby != attacker && !nearby.isAlliedTo(attacker) && !nearby.isSpectator()) {
                         nearby.addEffect(new MobEffectInstance(MobEffects.POISON, 40 * sporeLevel + 40, sporeLevel > 1 ? 1 : 0));
                     }
                 }
@@ -168,6 +175,7 @@ public class MovementAndCombatHandlers {
             // Run Campfire Vitality & Canopy Leap jump boost every 20 ticks (1 sec)
             if (time % 20 == 0) {
                 for (ServerPlayer player : level.players()) {
+                    if (!player.isAlive() || player.isSpectator()) continue;
                     // Canopy Leap: Jump boost on leaves/mushrooms
                     int canopy = ModEnchantments.getEquipmentLevel(player, EquipmentSlot.FEET, ModEnchantments.CANOPY_LEAP);
                     if (canopy > 0) {
@@ -189,6 +197,7 @@ public class MovementAndCombatHandlers {
                         BlockPos pPos = player.blockPosition();
                         boolean nearFire = false;
                         for (BlockPos check : BlockPos.betweenClosed(pPos.offset(-8, -3, -8), pPos.offset(8, 3, 8))) {
+                            if (!level.hasChunkAt(check) || check.distSqr(pPos) > 64) continue;
                             BlockState st = level.getBlockState(check);
                             if (st.is(BlockTags.CAMPFIRES) && st.hasProperty(CampfireBlock.LIT) && st.getValue(CampfireBlock.LIT)) {
                                 nearFire = true;

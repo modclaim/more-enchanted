@@ -17,6 +17,6 @@
     "mainhand",
     "offhand"
   ],
-  "supported_items": "#minecraft:enchantable/bow",
+  "supported_items": "#more_enchanted:enchantable/spore_weapons",
   "weight": 5
 }
